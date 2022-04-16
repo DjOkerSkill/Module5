@@ -40,9 +40,9 @@ namespace ConsoleApp3
             return color;
         }
 
-        static int[] GetArrayFromConsole() 
+        static int[] GetArrayFromConsole(int num=5) 
         { 
-            int[] result=new int[5];
+            int[] result=new int[num];
 
             for (int i = 0; i < result.Length; i++)
             {
@@ -66,7 +66,22 @@ namespace ConsoleApp3
                     }
                 }
             }
+            
             return array;
+        }
+
+        static void ShowArray(int[] array, bool issort = false) 
+        {
+            var temp = array;
+            
+            if (issort == true) 
+            {
+                 temp=GetSortArray(array);
+            }
+            foreach (var item in temp)
+            {
+                Console.WriteLine(item);
+            }          
         }
 
         public static void Main(string[] args)
@@ -95,13 +110,11 @@ namespace ConsoleApp3
                 Console.WriteLine(item);
             }*/
 
-            int[] result=GetArrayFromConsole();
-            result = GetSortArray(result);
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                Console.WriteLine(result[i]+" ");
-            }
+           int[] array=GetArrayFromConsole(10);
+           //int[] sortedarray = GetSortArray(array);
+           ShowArray(array, true);
+           
+            
         }
     }
 }
