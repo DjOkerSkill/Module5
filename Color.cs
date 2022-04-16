@@ -40,7 +40,7 @@ namespace ConsoleApp3
             return color;
         }
 
-        static int[] GetArrayFromConsole(int num=5) 
+        static int[] GetArrayFromConsole(int num) 
         { 
             int[] result=new int[num];
 
@@ -52,69 +52,95 @@ namespace ConsoleApp3
             return result;
         }
 
-        static int[] GetSortArray(int[] array) 
+        static void SortArray( int[] array, out int[] sortedesc,  out int[] sortedasc) 
         {
-            for (int i = 0; i < array.Length; i++)
+            sortedesc = SortArrayDesc(array);
+            Console.WriteLine();
+            sortedasc = SortArrayAsc(array);            
+        }
+        
+        static int[] SortArrayAsc (int[] array)
+        {
+            int[] temparray=new int[array.Length];
+
+            for (int i = 0; i < temparray.Length; i++)
             {
-                for (int j = 0+i;  j<array.Length; j++)
+                temparray[i] = array[i];
+            }
+            for (int i = 0; i < temparray.Length; i++)
+            {
+                for (int j = 1 + i; j < temparray.Length; j++)
                 {
-                    if (array[i]>array[j])
+                    if (temparray[i] > temparray[j])
                     {
-                        int temp = array[i];
-                        array[i] = array[j];
-                        array[j] = temp;
+                        int temp = temparray[i];
+                        temparray[i] = temparray[j];
+                        temparray[j] = temp;
                     }
+
                 }
             }
-            
-            return array;
+            foreach (var item in temparray)
+            {
+                Console.Write(item + " ");
+            }
+            return temparray;
         }
 
-        static void ShowArray(int[] array, bool issort = false) 
+        static int[] SortArrayDesc(int[] array)
+        {
+            int[] temparray = new int[array.Length];
+
+            for (int i = 0; i < temparray.Length; i++)
+            {
+                temparray[i] = array[i];
+            }
+            for (int i = 0; i < temparray.Length; i++)
+            {
+                for (int j = 1 + i; j < temparray.Length; j++)
+                {
+                    if (temparray[i] < temparray[j])
+                    {
+                        int temp = temparray[i];
+                        temparray[i] = temparray[j];
+                        temparray[j] = temp;
+                    }
+                }
+
+            }
+            foreach (var item in temparray)
+            {
+                Console.Write(item + " ");
+            }
+            return temparray;
+        }
+
+        /*static void ShowArray(int[] array, bool issort = false) 
         {
             var temp = array;
             
             if (issort == true) 
             {
-                 temp=GetSortArray(array);
+                 temp=SortArray(array);
             }
             foreach (var item in temp)
             {
                 Console.WriteLine(item);
             }          
+        }*/
+
+        static void GetName(ref string name) 
+        { 
+            Console.WriteLine("Введите свое имя");
+            name = Console.ReadLine();
         }
 
-        public static void Main(string[] args)
+        public static void Main( string[] args)
         {
-
-            //var (name, age) = ("Евгения", 27);
-           //Console.WriteLine("Мое имя: {0}", name);
-           // Console.WriteLine("Мой возраст: {0}", age);
-            //Console.Write("Введите имя: ");
-           // name = Console.ReadLine();
-            //Console.Write("Введите возрас с цифрами:");
-            //age = Convert.ToInt32(Console.ReadLine());
-           // Console.WriteLine("Ваше имя: {0}", name);
-            //Console.WriteLine("Ваш возраст: {0}", age);
-
-            //string[] favcolor=new string[3];
-            
-           /* for (int i = 0; i < favcolor.Length; i++)
-            {
-                favcolor[i]=ShowColor(name, age);
-            }
-            Console.WriteLine("Ваши любимые цвета");
-
-            foreach (var item in favcolor)
-            {
-                Console.WriteLine(item);
-            }*/
-
-           int[] array=GetArrayFromConsole(10);
-           //int[] sortedarray = GetSortArray(array);
-           ShowArray(array, true);
-           
-            
+           int[] array = GetArrayFromConsole(3);
+           int[] sortedesc; 
+           int[] sortedasc;
+           SortArray(array, out sortedesc, out sortedasc);
         }
     }
 }
